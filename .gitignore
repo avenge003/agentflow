@@ -1,0 +1,63 @@
+# =========================
+# Python / 虚拟环境
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+conda-meta/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# 配置文件 / 凭据
+# =========================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+
+# =========================
+# 模型权重 / 大文件
+# =========================
+models/
+
+# =========================
+# 数据 / 备份
+# =========================
+*.json.bak
+milvus_backup_*.json
+data/
+logs/
+*.log
+nohup.out
+
+# =========================
+# IDE / 系统
+# =========================
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# =========================
+# 评估产物
+# =========================
+Reports/_artifacts/
+Reports/reports/**/raw_*.json
+Reports/reports/**/raw_*.csv
+Reports/reports/**/latency_*.log
+Reports/.cache/
+需求/
+docs/
+=2.5.0

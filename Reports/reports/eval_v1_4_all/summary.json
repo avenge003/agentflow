@@ -1,0 +1,142 @@
+{
+  "overall": {
+    "dense_Recall@10": 0.7185,
+    "dense_NDCG@10": 0.6994,
+    "dense_MRR": 0.6194,
+    "dense_p50_ms": 4.1,
+    "dense_p95_ms": 6.5,
+    "hybrid_Recall@10": 0.7715,
+    "hybrid_NDCG@10": 0.7472,
+    "hybrid_MRR": 0.6769,
+    "hybrid_p50_ms": 3.6,
+    "hybrid_p95_ms": 4.4
+  },
+  "by_type": {
+    "adversarial": {
+      "count": 22,
+      "dense_Recall@10": 0.0,
+      "dense_NDCG@10": 0.7692,
+      "dense_MRR": 0.0,
+      "hybrid_Recall@10": 0.0,
+      "hybrid_NDCG@10": 0.7513,
+      "hybrid_MRR": 0.0
+    },
+    "comparison": {
+      "count": 15,
+      "dense_Recall@10": 1.0,
+      "dense_NDCG@10": 0.7337,
+      "dense_MRR": 0.7,
+      "hybrid_Recall@10": 1.0,
+      "hybrid_NDCG@10": 0.8135,
+      "hybrid_MRR": 0.7667
+    },
+    "definitional": {
+      "count": 44,
+      "dense_Recall@10": 0.9091,
+      "dense_NDCG@10": 0.7829,
+      "dense_MRR": 0.648,
+      "hybrid_Recall@10": 1.0,
+      "hybrid_NDCG@10": 0.9227,
+      "hybrid_MRR": 0.9394
+    },
+    "factual": {
+      "count": 51,
+      "dense_Recall@10": 0.8039,
+      "dense_NDCG@10": 0.751,
+      "dense_MRR": 0.6319,
+      "hybrid_Recall@10": 0.8039,
+      "hybrid_NDCG@10": 0.7294,
+      "hybrid_MRR": 0.6242
+    },
+    "long-tail": {
+      "count": 20,
+      "dense_Recall@10": 0.9,
+      "dense_NDCG@10": 0.819,
+      "dense_MRR": 0.8167,
+      "hybrid_Recall@10": 1.0,
+      "hybrid_NDCG@10": 0.8994,
+      "hybrid_MRR": 0.875
+    },
+    "multi-hop": {
+      "count": 15,
+      "dense_Recall@10": 0.9333,
+      "dense_NDCG@10": 0.8271,
+      "dense_MRR": 0.8111,
+      "hybrid_Recall@10": 1.0,
+      "hybrid_NDCG@10": 0.7826,
+      "hybrid_MRR": 0.7389
+    },
+    "negative": {
+      "count": 35,
+      "dense_Recall@10": 0.0,
+      "dense_NDCG@10": 0.0,
+      "dense_MRR": 0.0,
+      "hybrid_Recall@10": 0.0,
+      "hybrid_NDCG@10": 0.0,
+      "hybrid_MRR": 0.0
+    },
+    "numerical": {
+      "count": 32,
+      "dense_Recall@10": 0.75,
+      "dense_NDCG@10": 0.6922,
+      "dense_MRR": 0.7344,
+      "hybrid_Recall@10": 0.9688,
+      "hybrid_NDCG@10": 0.808,
+      "hybrid_MRR": 0.7865
+    },
+    "procedural": {
+      "count": 68,
+      "dense_Recall@10": 0.9559,
+      "dense_NDCG@10": 0.8767,
+      "dense_MRR": 0.9387,
+      "hybrid_Recall@10": 0.9853,
+      "hybrid_NDCG@10": 0.9347,
+      "hybrid_MRR": 0.9706
+    }
+  },
+  "by_difficulty": {
+    "easy": {
+      "count": 95,
+      "dense_Recall@10": 0.8526,
+      "dense_NDCG@10": 0.7658,
+      "dense_MRR": 0.6393,
+      "hybrid_Recall@10": 0.8947,
+      "hybrid_NDCG@10": 0.8189,
+      "hybrid_MRR": 0.7702
+    },
+    "hard": {
+      "count": 72,
+      "dense_Recall@10": 0.6528,
+      "dense_NDCG@10": 0.7877,
+      "dense_MRR": 0.5417,
+      "hybrid_Recall@10": 0.6944,
+      "hybrid_NDCG@10": 0.8119,
+      "hybrid_MRR": 0.5567
+    },
+    "medium": {
+      "count": 135,
+      "dense_Recall@10": 0.6593,
+      "dense_NDCG@10": 0.6057,
+      "dense_MRR": 0.6469,
+      "hybrid_Recall@10": 0.7259,
+      "hybrid_NDCG@10": 0.6623,
+      "hybrid_MRR": 0.6753
+    }
+  },
+  "by_source": {
+    "eval_queries.jsonl": 195,
+    "eval_queries_holdout.jsonl": 50,
+    "negative_queries.jsonl": 35,
+    "adversarial_queries.jsonl": 22
+  },
+  "negative": {
+    "dense_top1_zero_rate": 1.0,
+    "hybrid_top1_zero_rate": 1.0
+  },
+  "improvement": {
+    "Recall@10": "+7.4%",
+    "NDCG@10": "+6.8%",
+    "MRR": "+9.3%"
+  },
+  "n_queries": 302
+}

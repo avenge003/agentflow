@@ -1,0 +1,2107 @@
+[
+  {
+    "query_id": "q_001",
+    "query": "质量控制室计算机化系统权限管理",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQC018"
+    ],
+    "gold_keywords": [
+      "计算机化系统",
+      "权限"
+    ],
+    "dense": {
+      "latency_ms": 5.7,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.8,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9765,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_002",
+    "query": "变更控制管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQA010"
+    ],
+    "gold_keywords": [
+      "变更控制"
+    ],
+    "dense": {
+      "latency_ms": 5.7,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9857,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_003",
+    "query": "工艺验证管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPVT003"
+    ],
+    "gold_keywords": [
+      "工艺验证"
+    ],
+    "dense": {
+      "latency_ms": 5.7,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        0,
+        3,
+        0,
+        3,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9138,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        3,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9985,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_004",
+    "query": "质量风险管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQA016"
+    ],
+    "gold_keywords": [
+      "质量风险"
+    ],
+    "dense": {
+      "latency_ms": 3.9,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        0,
+        2,
+        0,
+        2,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.967,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 4.0,
+      "rels": [
+        3,
+        3,
+        3,
+        0,
+        3,
+        0,
+        3,
+        3,
+        0,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9525,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_005",
+    "query": "确认与验证总计划",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPVT002"
+    ],
+    "gold_keywords": [
+      "确认与验证"
+    ],
+    "dense": {
+      "latency_ms": 3.8,
+      "rels": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9326,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.3,
+      "rels": [
+        3,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9547,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_006",
+    "query": "清场管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPWS008"
+    ],
+    "gold_keywords": [
+      "清场"
+    ],
+    "dense": {
+      "latency_ms": 4.8,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9746,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9746,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_007",
+    "query": "委托生产管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPJS005"
+    ],
+    "gold_keywords": [
+      "委托生产"
+    ],
+    "dense": {
+      "latency_ms": 6.9,
+      "rels": [
+        3,
+        3,
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9796,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.4,
+      "rels": [
+        3,
+        2,
+        3,
+        0,
+        2,
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9368,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_008",
+    "query": "产品开发管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPJS001"
+    ],
+    "gold_keywords": [
+      "产品开发"
+    ],
+    "dense": {
+      "latency_ms": 3.9,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9899,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.3,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9851,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_009",
+    "query": "药品召回管理规程",
+    "type": "factual",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQA015"
+    ],
+    "gold_keywords": [
+      "药品召回"
+    ],
+    "dense": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.4,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_010",
+    "query": "文件修订审核批准印制销毁管理",
+    "type": "factual",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPWJ002"
+    ],
+    "gold_keywords": [
+      "文件修订"
+    ],
+    "dense": {
+      "latency_ms": 3.4,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9922,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9925,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_011",
+    "query": "如何实施 GMP 管理",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQA001"
+    ],
+    "gold_keywords": [
+      "实施GMP",
+      "GMP"
+    ],
+    "dense": {
+      "latency_ms": 4.7,
+      "rels": [
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9878,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.1,
+      "rels": [
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        0,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9779,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_012",
+    "query": "分析方法确认与验证怎么做",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQC016"
+    ],
+    "gold_keywords": [
+      "分析方法",
+      "确认与验证"
+    ],
+    "dense": {
+      "latency_ms": 3.6,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9991,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.1,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_013",
+    "query": "如何进行药品追溯码管理",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPSC023"
+    ],
+    "gold_keywords": [
+      "追溯码"
+    ],
+    "dense": {
+      "latency_ms": 3.3,
+      "rels": [
+        3,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9936,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.3,
+      "rels": [
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9889,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_014",
+    "query": "检验用仪器设备的校准流程",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQC013"
+    ],
+    "gold_keywords": [
+      "检验用仪器",
+      "校准"
+    ],
+    "dense": {
+      "latency_ms": 5.5,
+      "rels": [
+        3,
+        0,
+        3,
+        3,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9062,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.5,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_015",
+    "query": "多巴丝肼片检验操作",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SOPQC-CP021"
+    ],
+    "gold_keywords": [
+      "多巴丝肼"
+    ],
+    "dense": {
+      "latency_ms": 5.4,
+      "rels": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        0,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9194,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.6,
+      "rels": [
+        3,
+        2,
+        3,
+        2,
+        3,
+        0,
+        2,
+        3,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9494,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_016",
+    "query": "清场操作标准流程",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPWS008"
+    ],
+    "gold_keywords": [
+      "清场"
+    ],
+    "dense": {
+      "latency_ms": 4.0,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9758,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.5,
+      "rels": [
+        3,
+        2,
+        3,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9324,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_017",
+    "query": "贴牌生产的管理要求",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPXS007"
+    ],
+    "gold_keywords": [
+      "贴牌生产"
+    ],
+    "dense": {
+      "latency_ms": 4.0,
+      "rels": [
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.2,
+      "rels": [
+        3,
+        3,
+        0,
+        0,
+        0,
+        3,
+        3,
+        3,
+        0,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.8851,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_018",
+    "query": "生产用模具如何管理",
+    "type": "procedural",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPSB010"
+    ],
+    "gold_keywords": [
+      "生产用模具",
+      "模具"
+    ],
+    "dense": {
+      "latency_ms": 5.6,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.4,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        3,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9988,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_019",
+    "query": "什么是药品注册管理办法",
+    "type": "definitional",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "药品注册管理办法"
+    ],
+    "gold_keywords": [
+      "药品注册管理"
+    ],
+    "dense": {
+      "latency_ms": 5.4,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        0,
+        3,
+        3,
+        3,
+        0,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9753,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.2,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        2,
+        2,
+        2,
+        3,
+        0,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9351,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_020",
+    "query": "什么是 OOS",
+    "type": "definitional",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [],
+    "gold_keywords": [
+      "OOS",
+      "超标"
+    ],
+    "dense": {
+      "latency_ms": 5.0,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.9,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_021",
+    "query": "药品生产监督管理办法的核心要求",
+    "type": "definitional",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "药品生产监督管理办法"
+    ],
+    "gold_keywords": [
+      "药品生产监督"
+    ],
+    "dense": {
+      "latency_ms": 5.5,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        0,
+        0,
+        3,
+        3,
+        0,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9076,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.0,
+      "rels": [
+        3,
+        3,
+        3,
+        2,
+        0,
+        3,
+        2,
+        2,
+        0,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9742,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_022",
+    "query": "药品管理法实施条例",
+    "type": "definitional",
+    "difficulty": "easy",
+    "is_negative": false,
+    "gold_prefixes": [
+      "中华人民共和国药品管理法实施条例"
+    ],
+    "gold_keywords": [
+      "药品管理法实施条例"
+    ],
+    "dense": {
+      "latency_ms": 5.2,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        3,
+        3,
+        3,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9496,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.2,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        3,
+        0,
+        3,
+        2,
+        0,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9345,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_023",
+    "query": "上市后变更管理办法适用范围",
+    "type": "definitional",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "药品上市后变更管理办法"
+    ],
+    "gold_keywords": [
+      "上市后变更"
+    ],
+    "dense": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        0,
+        3,
+        3,
+        0,
+        3,
+        3,
+        2,
+        3,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.8895,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.1,
+      "rels": [
+        3,
+        3,
+        3,
+        0,
+        0,
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9505,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_024",
+    "query": "稳定性试验室温湿度要求",
+    "type": "numerical",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SOPQA025",
+      "SOPQA026"
+    ],
+    "gold_keywords": [
+      "稳定性试验室",
+      "Labonce"
+    ],
+    "dense": {
+      "latency_ms": 4.4,
+      "rels": [
+        0,
+        0,
+        3,
+        3,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.6534,
+      "MRR": 0.3333,
+      "Top1_rel": 0,
+      "first_rel_rank": 3
+    },
+    "hybrid": {
+      "latency_ms": 3.4,
+      "rels": [
+        3,
+        3,
+        0,
+        0,
+        3,
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9122,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_025",
+    "query": "尘埃粒子计数器操作",
+    "type": "numerical",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SOPQA035"
+    ],
+    "gold_keywords": [
+      "尘埃粒子计数器"
+    ],
+    "dense": {
+      "latency_ms": 7.0,
+      "rels": [
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9407,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.5,
+      "rels": [
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9643,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_026",
+    "query": "记录凭证保存期限",
+    "type": "numerical",
+    "difficulty": "medium",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPWJ003"
+    ],
+    "gold_keywords": [
+      "记录",
+      "凭证",
+      "保存期限"
+    ],
+    "dense": {
+      "latency_ms": 6.7,
+      "rels": [
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9588,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.5,
+      "rels": [
+        3,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9583,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_027",
+    "query": "印刷性包装材料的管理",
+    "type": "long-tail",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPWL006"
+    ],
+    "gold_keywords": [
+      "印刷性包装材料"
+    ],
+    "dense": {
+      "latency_ms": 6.4,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9499,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.5,
+      "rels": [
+        3,
+        3,
+        2,
+        2,
+        3,
+        0,
+        3,
+        3,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9645,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_028",
+    "query": "各小组工作职责",
+    "type": "long-tail",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPGW055"
+    ],
+    "gold_keywords": [
+      "工作职责"
+    ],
+    "dense": {
+      "latency_ms": 4.4,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9558,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.7,
+      "rels": [
+        3,
+        3,
+        0,
+        3,
+        3,
+        0,
+        3,
+        3,
+        0,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9372,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_029",
+    "query": "质量控制室计算机化系统管理",
+    "type": "long-tail",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQC017"
+    ],
+    "gold_keywords": [
+      "计算机化系统"
+    ],
+    "dense": {
+      "latency_ms": 5.3,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        0,
+        2,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.992,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.9,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        3,
+        3
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9955,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_030",
+    "query": "HPLC 校准标准操作规程",
+    "type": "adversarial",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [],
+    "gold_keywords": [
+      "HPLC",
+      "高效液相色谱",
+      "校准"
+    ],
+    "dense": {
+      "latency_ms": 3.8,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        2,
+        2,
+        0
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9799,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.9,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_031",
+    "query": "GMP 实施的关键要素",
+    "type": "adversarial",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQA001"
+    ],
+    "gold_keywords": [
+      "GMP",
+      "实施"
+    ],
+    "dense": {
+      "latency_ms": 5.4,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9321,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.7,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_032",
+    "query": "OOS调查 异常结果处理",
+    "type": "adversarial",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [],
+    "gold_keywords": [
+      "OOS",
+      "异常",
+      "调查"
+    ],
+    "dense": {
+      "latency_ms": 5.3,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.2,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_033",
+    "query": "计算机化系统 权限管理 质量控制",
+    "type": "adversarial",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [
+      "SMPQC018"
+    ],
+    "gold_keywords": [
+      "计算机化系统",
+      "权限管理"
+    ],
+    "dense": {
+      "latency_ms": 4.4,
+      "rels": [
+        3,
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9942,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 3.6,
+      "rels": [
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9813,
+      "MRR": 1.0,
+      "Top1_rel": 3,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_034",
+    "query": "二痒化硫残留量测定方法",
+    "type": "adversarial",
+    "difficulty": "hard",
+    "is_negative": false,
+    "gold_prefixes": [],
+    "gold_keywords": [
+      "二氧化硫",
+      "残留量"
+    ],
+    "dense": {
+      "latency_ms": 6.0,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 0.9842,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    },
+    "hybrid": {
+      "latency_ms": 4.2,
+      "rels": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "Recall@10": 1.0,
+      "NDCG@10": 1.0,
+      "MRR": 1.0,
+      "Top1_rel": 2,
+      "first_rel_rank": 1
+    }
+  },
+  {
+    "query_id": "q_035",
+    "query": "本厂班车时刻表",
+    "type": "negative",
+    "difficulty": "medium",
+    "is_negative": true,
+    "gold_prefixes": [],
+    "gold_keywords": [],
+    "dense": {
+      "latency_ms": 4.5,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    },
+    "hybrid": {
+      "latency_ms": 4.3,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    }
+  },
+  {
+    "query_id": "q_036",
+    "query": "2024 年度公司财报",
+    "type": "negative",
+    "difficulty": "medium",
+    "is_negative": true,
+    "gold_prefixes": [],
+    "gold_keywords": [],
+    "dense": {
+      "latency_ms": 5.5,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    },
+    "hybrid": {
+      "latency_ms": 3.9,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    }
+  },
+  {
+    "query_id": "q_037",
+    "query": "食堂菜单与营养分析",
+    "type": "negative",
+    "difficulty": "medium",
+    "is_negative": true,
+    "gold_prefixes": [],
+    "gold_keywords": [],
+    "dense": {
+      "latency_ms": 4.1,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    },
+    "hybrid": {
+      "latency_ms": 3.8,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    }
+  },
+  {
+    "query_id": "q_038",
+    "query": "员工生日福利政策",
+    "type": "negative",
+    "difficulty": "medium",
+    "is_negative": true,
+    "gold_prefixes": [],
+    "gold_keywords": [],
+    "dense": {
+      "latency_ms": 5.5,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    },
+    "hybrid": {
+      "latency_ms": 3.2,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    }
+  },
+  {
+    "query_id": "q_039",
+    "query": "本厂污水处理工艺",
+    "type": "negative",
+    "difficulty": "medium",
+    "is_negative": true,
+    "gold_prefixes": [],
+    "gold_keywords": [],
+    "dense": {
+      "latency_ms": 3.9,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    },
+    "hybrid": {
+      "latency_ms": 3.9,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    }
+  },
+  {
+    "query_id": "q_040",
+    "query": "什么是区块链",
+    "type": "negative",
+    "difficulty": "easy",
+    "is_negative": true,
+    "gold_prefixes": [],
+    "gold_keywords": [],
+    "dense": {
+      "latency_ms": 3.9,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    },
+    "hybrid": {
+      "latency_ms": 3.4,
+      "rels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "MRR": 0.0,
+      "Top1_rel": 0,
+      "first_rel_rank": 0
+    }
+  }
+]

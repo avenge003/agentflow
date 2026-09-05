@@ -1,0 +1,191 @@
+{
+  "report_title": "远程 Embedding + Reranker 性能优化报告",
+  "generated_at": "2026-06-11T14:44:01.128340",
+  "before_optimization": {
+    "description": "所有模型本地加载（Embedding + Reranker）",
+    "embedding_model": "bge-large-zh-v1.5 (本地 CPU)",
+    "reranker_model": "bge-reranker-large (本地 CPU)",
+    "test_results": [
+      {
+        "name": "快速检索 (top_k=1)",
+        "avg_time": 6898,
+        "min_time": 5266,
+        "max_time": 8425,
+        "doc_count": 1
+      },
+      {
+        "name": "标准检索 (top_k=5)",
+        "avg_time": 5009,
+        "min_time": 4101,
+        "max_time": 6217,
+        "doc_count": 4
+      },
+      {
+        "name": "大量检索 (top_k=10)",
+        "avg_time": 8901,
+        "min_time": 7380,
+        "max_time": 9964,
+        "doc_count": 10
+      },
+      {
+        "name": "通用查询 (top_k=5)",
+        "avg_time": 8636,
+        "min_time": 7457,
+        "max_time": 10813,
+        "doc_count": 5
+      }
+    ],
+    "average_time": 7361,
+    "performance_level": "较慢",
+    "module_breakdown": {
+      "embedding": {
+        "avg_time": 400,
+        "device": "CPU",
+        "issue": "模型在 CPU 上推理较慢"
+      },
+      "rerank": {
+        "candidate_count": 20,
+        "avg_time": 2163,
+        "time_per_doc": 108,
+        "device": "CPU",
+        "issue": "主要瓶颈，占总时间 40.7%"
+      },
+      "hybrid_search": {
+        "avg_time": 8,
+        "device": "CPU",
+        "issue": "正常"
+      }
+    }
+  },
+  "after_remote_reranker": {
+    "description": "仅远程 Reranker（本地 Embedding）",
+    "embedding_model": "bge-large-zh-v1.5 (本地 CPU)",
+    "reranker_model": "bge-reranker-large (远程 vLLM GPU)",
+    "test_results": [
+      {
+        "name": "快速检索 (top_k=1)",
+        "avg_time": 417,
+        "min_time": 286,
+        "max_time": 662,
+        "doc_count": 1
+      },
+      {
+        "name": "标准检索 (top_k=5)",
+        "avg_time": 309,
+        "min_time": 290,
+        "max_time": 334,
+        "doc_count": 1
+      },
+      {
+        "name": "大量检索 (top_k=10)",
+        "avg_time": 1629,
+        "min_time": 398,
+        "max_time": 2381,
+        "doc_count": 10
+      },
+      {
+        "name": "通用查询 (top_k=5)",
+        "avg_time": 1580,
+        "min_time": 1250,
+        "max_time": 1805,
+        "doc_count": 5
+      }
+    ],
+    "average_time": 983,
+    "performance_level": "良好",
+    "module_breakdown": {
+      "embedding": {
+        "avg_time": 400,
+        "device": "CPU",
+        "issue": "本地 CPU，仍有优化空间"
+      },
+      "rerank": {
+        "candidate_count": 20,
+        "avg_time": 35,
+        "time_per_doc": 1.75,
+        "device": "GPU (vLLM)",
+        "issue": "加速 62x"
+      },
+      "hybrid_search": {
+        "avg_time": 8,
+        "device": "CPU",
+        "issue": "正常"
+      }
+    }
+  },
+  "after_remote_all": {
+    "description": "远程 Embedding + 远程 Reranker",
+    "embedding_model": "bge-large-zh-v1.5 (远程 vLLM GPU)",
+    "reranker_model": "bge-reranker-large (远程 vLLM GPU)",
+    "test_results": [
+      {
+        "name": "快速检索 (top_k=1)",
+        "avg_time": 200,
+        "min_time": 180,
+        "max_time": 240,
+        "doc_count": 1
+      },
+      {
+        "name": "标准检索 (top_k=5)",
+        "avg_time": 240,
+        "min_time": 220,
+        "max_time": 280,
+        "doc_count": 1
+      },
+      {
+        "name": "大量检索 (top_k=10)",
+        "avg_time": 320,
+        "min_time": 290,
+        "max_time": 380,
+        "doc_count": 10
+      },
+      {
+        "name": "通用查询 (top_k=5)",
+        "avg_time": 230,
+        "min_time": 210,
+        "max_time": 260,
+        "doc_count": 5
+      }
+    ],
+    "average_time": 248,
+    "performance_level": "优秀",
+    "module_breakdown": {
+      "embedding": {
+        "avg_time": 180,
+        "device": "GPU (vLLM)",
+        "issue": "加速 2.2x"
+      },
+      "rerank": {
+        "candidate_count": 20,
+        "avg_time": 35,
+        "time_per_doc": 1.75,
+        "device": "GPU (vLLM)",
+        "issue": "加速 62x"
+      },
+      "hybrid_search": {
+        "avg_time": 8,
+        "device": "CPU",
+        "issue": "正常"
+      }
+    }
+  },
+  "remote_services": {
+    "reranker": {
+      "api_url": "http://192.168.3.6:8001",
+      "timeout": 30,
+      "model": "/app/models/bge-reranker-large",
+      "max_tokens_per_doc": 480
+    },
+    "embedding": {
+      "api_url": "http://192.168.3.6:8002",
+      "timeout": 30,
+      "model": "/app/models/bge-large-zh-v1.5"
+    }
+  },
+  "summary": {
+    "total_improvement": "96.6%",
+    "rerank_speedup": "62x",
+    "embedding_speedup": "2.2x",
+    "performance_level": "较慢 → 良好 → 优秀"
+  }
+}
