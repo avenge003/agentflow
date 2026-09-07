@@ -1,5 +1,5 @@
 from typing import TypedDict, Annotated, Literal
-from langgraph.graph.message import add_message
+from langgraph.graph.message import add_messages
 from operator import add
 
 class InputState(TypedDict):
@@ -40,4 +40,4 @@ class OverAllState(TypedDict):
     sql_results: list[tuple]
     sql_analysis_result: str
     other_results: str
-    messages: Annotated[list, add_message]
+    messages: Annotated[list, add_messages]
