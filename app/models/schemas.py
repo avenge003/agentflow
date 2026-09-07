@@ -91,6 +91,16 @@ class DeleteDocumentsResponse(BaseModel):
     status: str = Field(..., description="删除状态")
 
 
+class AgentChatRequest(BaseModel):
+    """智能体请求"""
+    user_input: str = Field(..., description="用户输入")
+
+class AgentChatResponse(BaseModel):
+    """智能体响应"""
+    response: str = Field(..., description="智能体回复")
+
+
+
 # ==================== 错误响应模型 ====================
 
 class ErrorResponse(BaseModel):

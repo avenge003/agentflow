@@ -4,8 +4,8 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.types import Send
 
 from langchain.messages import HumanMessage, SystemMessage
-from app.services.model_service import ModelService
-from app.services.milvus_service import MilvusService
+from services.model_service import ModelService
+from services.milvus_service import MilvusService
 
 model_service = ModelService()
 milvus_service = MilvusService()

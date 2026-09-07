@@ -12,9 +12,9 @@ import uuid
 import numpy as np
 from fastapi import APIRouter, Depends
 
-from app.core.config import settings
-from app.middleware.auth import verify_api_key
-from app.models.schemas import (
+from core.config import settings
+from middleware.auth import verify_api_key
+from models.schemas import (
     DeleteDocumentsRequest,
     DeleteDocumentsResponse,
     ErrorResponse,
@@ -25,11 +25,14 @@ from app.models.schemas import (
     StoreDocumentsResponse,
     UpdateDocumentsRequest,
     UpdateDocumentsResponse,
+    AgentChatRequest,
+    AgentChatResponse,
 )
-from app.services.milvus_service import MilvusService
-from app.services.model_service import ModelService
-from app.services.reranker_service import RemoteRerankerService
-from app.services.embedding_service import RemoteEmbeddingService
+from services.milvus_service import MilvusService
+from services.model_service import ModelService
+from services.reranker_service import RemoteRerankerService
+from services.embedding_service import RemoteEmbeddingService
+from graph.builder import build_graph
 
 logger = logging.getLogger(__name__)
 
@@ -340,3 +343,25 @@ async def delete_documents(
     except Exception as e:
         logger.error(f"删除文档失败: {e}", exc_info=True)
         return ErrorResponse(error_code=500, error_msg=f"删除文档失败: {str(e)}")
+
+
+# ==================== Agent Chat ====================
+@router.post(
+    "/agent/chat",
+    response_model=AgentChatResponse,
+    responses={401: {"model": ErrorResponse}, 403: {"model": ErrorResponse}, 500: {"model": ErrorResponse}},
+)
+async def agent_chat(
+    request: AgentChatRequest,
+    api_key: str = Depends(verify_api_key),
+) -> AgentChatResponse:
+    """Agent Chat 接口"""
+    user_input = request.user_input
+    graph = build_graph()
+    final_state = None
+    async for state,metadata in graph.astream(
+        {"user_input": user_input},
+        stream_mode="messages"
+        ):
+        final_state = state.content
+    return AgentChatResponse(response=final_state)

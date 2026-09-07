@@ -51,6 +51,15 @@ class Settings(BaseSettings):
     hybrid_sparse_limit: int = 20  # 单路（sparse_bm25）召回数
     rrf_k: int = 60  # Reciprocal Rank Fusion 的常数 k
 
+    # llm 配置
+    model_name: str = "qwen-plus"
+    model_api_key: str = ""
+    model_base_url: str = ""
+    model_provider: str = "openai"
+    model_temperature: float = 0.5
+    model_timeout: int = 60
+    model_max_retries: int = 3
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
