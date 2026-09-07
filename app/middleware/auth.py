@@ -1,6 +1,6 @@
 from fastapi import Header, HTTPException
 
-from app.core.config import settings
+from core.config import settings
 
 
 def _get_valid_api_keys() -> list[str]:

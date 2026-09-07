@@ -12,9 +12,9 @@ import uuid
 import numpy as np
 from fastapi import APIRouter, Depends
 
-from app.core.config import settings
-from app.middleware.auth import verify_api_key
-from app.models.schemas import (
+from core.config import settings
+from middleware.auth import verify_api_key
+from models.schemas import (
     DeleteDocumentsRequest,
     DeleteDocumentsResponse,
     ErrorResponse,
@@ -28,10 +28,11 @@ from app.models.schemas import (
     AgentChatRequest,
     AgentChatResponse,
 )
-from app.services.milvus_service import MilvusService
-from app.services.model_service import ModelService
-from app.services.reranker_service import RemoteRerankerService
-from app.services.embedding_service import RemoteEmbeddingService
+from services.milvus_service import MilvusService
+from services.model_service import ModelService
+from services.reranker_service import RemoteRerankerService
+from services.embedding_service import RemoteEmbeddingService
+from graph.builder import build_graph
 
 logger = logging.getLogger(__name__)
 
@@ -356,5 +357,11 @@ async def agent_chat(
 ) -> AgentChatResponse:
     """Agent Chat 接口"""
     user_input = request.user_input
-    response = model_service.invoke(user_input)
-    return AgentChatResponse(response=response)
+    graph = build_graph()
+    final_state = None
+    async for state,metadata in graph.astream(
+        {"user_input": user_input},
+        stream_mode="messages"
+        ):
+        final_state = state.content
+    return AgentChatResponse(response=final_state)
