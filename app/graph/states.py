@@ -1,5 +1,6 @@
 from typing import TypedDict, Annotated, Literal
 from langgraph.graph.message import add_message
+from operator import add
 
 class InputState(TypedDict):
     """

@@ -1,12 +1,12 @@
 from pathlib import Path
 from typing import TypedDict, Literal, Annotated
 from operator import add
-from langgraph.graph import StateGraph, START, END
-from langgraph.types import Send
 
 from langchain.messages import HumanMessage, SystemMessage
 from app.services.model_service import ModelService
 from app.services.milvus_service import MilvusService
+
+from .states import OverAllState, InputState, UserInputClassification, UserInputSplit
 
 model_service = ModelService()
 milvus_service = MilvusService()
@@ -34,12 +34,8 @@ def classify_user_input(state: InputState) -> OverAllState:
     对用户输入进行分类
     """
     user_input = state["user_input"]
-    system_content = f"""
-        你是一个专业的语义分类助手，只能对用户输入进行分类，不能进行其他操作，分类结果只能是rag、sql或other，
-        如果是用户输入的文本是关于药厂制度文件等相关的，分类结果为rag
-        如果是用户输入的文本是关于销售采购库存等经营数据相关的，分类结果为sql
-        如果是用户输入的文本是关于其他等相关的，分类结果为other
-    """
+    system_content = load_prompt("classifier")
+
     system_message = SystemMessage(content=system_content)
     human_message = HumanMessage(content=user_input)
     messages = [system_message, human_message]
@@ -56,12 +52,7 @@ def split_user_input(state: OverAllState) -> OverAllState:
     对用户输入进行拆分
     """
     user_input = state["user_input"]
-    system_content = f"""
-        你是一个专业的用户输入拆分助手，
-        对用户输入的文本进行分析，并拆分成多个可以用来检索知识库的子文本（10个以内），
-        拆分内容必须是与药厂制度文件，药品质量，药品相关法律法规等相关的
-        识别出用户输入的真实意图。
-    """
+    system_content = load_prompt("spliter")
     system_message = SystemMessage(content=system_content)
     human_message = HumanMessage(content=user_input)
     messages = [system_message, human_message]
@@ -72,21 +63,7 @@ def split_user_input(state: OverAllState) -> OverAllState:
         "user_input_split": user_input_split
     }
 
-def rag_router(state: OverAllState) -> Sequence[Send]:
-    """
-    rag_agent
-    """
-    user_input_split = state["user_input_split"]
-    tasks = []
-    if user_input_split["user_inputs"]:
-        for index, user_input in enumerate(user_input_split["user_inputs"]):
-            task = Send(
-                "query_milvus",
-                {"user_input": user_input},
-            )
-            tasks.append(task)
-    
-    return tasks
+
 
 def query_milvus(state: QueryMilvusState) -> OverAllState:
     """
@@ -112,19 +89,7 @@ def sql_generator(state: OverAllState) -> OverAllState:
     生成SQL查询语句
     """
     user_input = state["user_input"]
-    system_content = f"""
-        你是一个专业的Text2SQL助手，针对用户输入的文本，生成对应的SQL查询语句。
-        生成的SQL查询语句必须是正确的MSSQLServer的SQL语法，不能包含任何错误或无效的SQL语句。
-        生成的SQL查询语句是关于药厂的物料采购、物料成品库存以及成品销售等数据查询语句。
-        查询结果尽量详细。
-        数据库表结构如下： 
-        商品流水表：splsk,spid:商品内码,rq:日期,dwbh:单位内码,pihao:商品批号,
-            djbh:单据编号(JHA开头：采购入库单，JHC开头：采购退出单，JHB开头：采购退补价单，XSA开头：销售出库单，XSC开头：销售退出单，XSB开头：销售退补价单),
-            rkshl:入库数量,rkdj:入库单价,rkje:入库金额,chkshl:出库数量,chkje:出库金额,xshe:销售额
-        商品货位批号库存表：sphwph,spid:商品内码,pihao:商品批号,shl:库存数量
-        商品资料表：spkfk,spid:商品内码,spbh:商品编号,spmch:商品名称,shpgg:商品规格,dw:单位,shpchd:商品产地,shengccj:生产厂家,leibie:商品类型
-        采购销售单位表：mchk,dwbh:单位内码,danwbh:单位编号,dwmch:单位名称,ywy:业务员,isjh:是否是采购单位(是，否),isxs:是否是销售单位(是，否),dzhdh:联系地址
-    """
+    system_content = load_prompt("sqlgenerator")
     system_message = SystemMessage(content=system_content)
     human_message = HumanMessage(content=user_input)
     messages = [system_message, human_message]
@@ -169,18 +134,7 @@ def sql_analyzer(state: OverAllState) -> OverAllState:
 
     # 分析SQL查询结果
 
-    system_content = f"""
-        你是一个专业的企业经营数据分析助手。
-        针对查询到的业务数据，从药厂角度进行分析。
-        从多个维度进行分析，包括但不限于：
-        1. 商品销售趋势
-        2. 采购销售单位的采购销售趋势
-        3. 商品库存趋势
-        4. 商品销售金额趋势
-        5. 商品销售数量趋势
-        分析结果必须是中文。
-        分析结果分项分类输出。
-    """
+    system_content = load_prompt("dataanalyzer")
     user_content=f"""
         用户的输入内容：{user_input}
         用户查询到的业务数据如下：
@@ -197,7 +151,6 @@ def sql_analyzer(state: OverAllState) -> OverAllState:
         "sql_analysis_result": sql_analysis_result
     }
 
-
 def other_agent(state: OverAllState) -> OverAllState:
     """
     其他查询
@@ -209,14 +162,3 @@ def other_agent(state: OverAllState) -> OverAllState:
     }
 
 
-def classification_router(state: OverAllState) -> Literal["split_user_input", "sql_generator", "other_agent"]:
-    """
-    分类路由
-    """
-    classification = state["classification"]
-    if classification == "rag":
-        return "split_user_input"
-    elif classification == "sql":
-        return "sql_generator"
-    else:
-        return "other_agent"
