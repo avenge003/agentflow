@@ -41,6 +41,14 @@ class ModelService:
         self.bm25: BM25Okapi | None = None
         self.bm25_corpus: List[List[str]] = []
 
+        self.model_name = settings.model_name
+        self.model_provider = settings.model_provider
+        self.model_temperature = settings.model_temperature
+        self.model_timeout = settings.model_timeout
+        self.model_max_retries = settings.model_max_retries
+        self.model_base_url = settings.model_base_url
+        self.model_api_key = settings.model_api_key
+
         self.llm_model = None
 
     def load_llm_model(self):
@@ -51,13 +59,13 @@ class ModelService:
 
         logger.info("开始加载 llm 模型...")
         self.llm_model = init_chat_model(
-            os.getenv("MODEL_NAME"),
-            model_provider="openai",
-            temperature=0.5,
-            timeout=60,
-            max_retries=3,
-            base_url=os.getenv("DASHSCOPE_API_URL"),
-            api_key=os.getenv("DASHSCOPE_API_KEY"),
+            self.model_name,
+            model_provider=self.model_provider,
+            temperature=self.model_temperature,
+            timeout=self.model_timeout,
+            max_retries=self.model_max_retries,
+            base_url=self.model_base_url,
+            api_key=self.model_api_key,
             extra_body={
                 "thinking": {
                     "type": "disabled"
