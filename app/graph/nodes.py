@@ -44,7 +44,8 @@ def classify_user_input(state: InputState) -> OverAllState:
 
     return {
         "user_input": user_input,
-        "classification": response["classification"]
+        "classification": response["classification"],
+        "messages": [response]
     }
 
 def split_user_input(state: OverAllState) -> OverAllState:
@@ -60,7 +61,8 @@ def split_user_input(state: OverAllState) -> OverAllState:
     user_input_split = model.with_structured_output(UserInputSplit).invoke(messages)
 
     return {
-        "user_input_split": user_input_split
+        "user_input_split": user_input_split,
+        "messages": [response]
     }
 
 
@@ -97,7 +99,8 @@ def sql_generator(state: OverAllState) -> OverAllState:
     response = model.invoke(messages)
 
     return {
-        "sql_str": response.content.replace("```sql", "").replace("```", "")
+        "sql_str": response.content.replace("```sql", "").replace("```", ""),
+        "messages": [response]
     }
 
 def sql_executor(state: OverAllState) -> OverAllState:
@@ -148,7 +151,8 @@ def sql_analyzer(state: OverAllState) -> OverAllState:
     sql_analysis_result = response.content
 
     return {
-        "sql_analysis_result": sql_analysis_result
+        "sql_analysis_result": sql_analysis_result,
+        "messages": [response]
     }
 
 def other_agent(state: OverAllState) -> OverAllState:
@@ -158,7 +162,8 @@ def other_agent(state: OverAllState) -> OverAllState:
     user_input = state["user_input"]
     result = model.invoke([HumanMessage(content=user_input)])
     return {
-        "other_results": result.content
+        "other_results": result.content,
+        "messages": [result]
     }
 
 
