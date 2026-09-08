@@ -3,8 +3,8 @@ from typing import TypedDict, Literal, Annotated
 from operator import add
 
 from langchain.messages import HumanMessage, SystemMessage
-from services.model_service import ModelService
-from services.milvus_service import MilvusService
+from app.services.model_service import ModelService
+from app.services.milvus_service import MilvusService
 
 from .states import OverAllState, InputState, UserInputClassification, UserInputSplit, QueryMilvusState
 

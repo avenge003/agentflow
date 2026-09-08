@@ -13,7 +13,7 @@ from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from langchain.chat_models import init_chat_model
-from core.config import settings
+from app.core.config import settings
 from dotenv import load_dotenv
 import os
 logger = logging.getLogger(__name__)

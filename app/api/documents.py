@@ -12,9 +12,9 @@ import uuid
 import numpy as np
 from fastapi import APIRouter, Depends
 
-from core.config import settings
-from middleware.auth import verify_api_key
-from models.schemas import (
+from app.core.config import settings
+from app.middleware.auth import verify_api_key
+from app.models.schemas import (
     DeleteDocumentsRequest,
     DeleteDocumentsResponse,
     ErrorResponse,
@@ -28,11 +28,11 @@ from models.schemas import (
     AgentChatRequest,
     AgentChatResponse,
 )
-from services.milvus_service import MilvusService
-from services.model_service import ModelService
-from services.reranker_service import RemoteRerankerService
-from services.embedding_service import RemoteEmbeddingService
-from graph.builder import build_graph
+from app.services.milvus_service import MilvusService
+from app.services.model_service import ModelService
+from app.services.reranker_service import RemoteRerankerService
+from app.services.embedding_service import RemoteEmbeddingService
+from app.graph.builder import build_graph
 
 logger = logging.getLogger(__name__)
 

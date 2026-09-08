@@ -35,7 +35,7 @@ from pymilvus import (
 )
 from pymilvus.milvus_client.index import IndexParams
 
-from core.config import settings
+from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 

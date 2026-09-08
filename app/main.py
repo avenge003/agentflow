@@ -6,12 +6,12 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api import documents
-from core.config import settings
-from services.milvus_service import MilvusService
-from services.model_service import ModelService
-from services.reranker_service import RemoteRerankerService
-from services.embedding_service import RemoteEmbeddingService
+from app.api import documents
+from app.core.config import settings
+from app.services.milvus_service import MilvusService
+from app.services.model_service import ModelService
+from app.services.reranker_service import RemoteRerankerService
+from app.services.embedding_service import RemoteEmbeddingService
 
 # 配置日志
 logging.basicConfig(
