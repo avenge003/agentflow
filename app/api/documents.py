@@ -6,11 +6,16 @@ Phase 1 改造要点（v1.1.0）：
   - G3: update 接口不再本地构造 [0.0]*1024 占位向量
 """
 
+import asyncio
+import json
 import logging
 import uuid
 
 import numpy as np
 from fastapi import APIRouter, Depends
+from fastapi.responses import StreamingResponse
+from langchain.messages import AIMessage, HumanMessage
+from langchain_core.callbacks import BaseCallbackHandler
 
 from app.core.config import settings
 from app.middleware.auth import verify_api_key
@@ -26,13 +31,13 @@ from app.models.schemas import (
     UpdateDocumentsRequest,
     UpdateDocumentsResponse,
     AgentChatRequest,
-    AgentChatResponse,
 )
 from app.services.milvus_service import MilvusService
 from app.services.model_service import ModelService
 from app.services.reranker_service import RemoteRerankerService
 from app.services.embedding_service import RemoteEmbeddingService
 from app.graph.builder import build_graph
+from app.graph.nodes import model as agent_llm
 
 logger = logging.getLogger(__name__)
 
@@ -345,23 +350,278 @@ async def delete_documents(
         return ErrorResponse(error_code=500, error_msg=f"删除文档失败: {str(e)}")
 
 
+# ==================== 会话历史与自动压缩 ====================
+# 内存会话存储: {session_id: {"summary": str | None, "messages": [{"role", "content"}]}}
+# summary 为压缩摘要（压缩点之前的内容）；messages 为压缩点之后的会话内容
+_session_histories: dict[str, dict] = {}
+
+
+def _estimate_tokens(text: str) -> int:
+    """粗略估算 token 数：中文约 1 字 1 token，其他字符约 4 字符 1 token"""
+    if not text:
+        return 0
+    cjk = sum(1 for ch in text if "\u4e00" <= ch <= "\u9fff")
+    return cjk + (len(text) - cjk) // 4 + 1
+
+
+def _get_session(session_id: str) -> dict:
+    if session_id not in _session_histories:
+        _session_histories[session_id] = {"summary": None, "messages": []}
+    return _session_histories[session_id]
+
+
+def _context_token_count(store: dict) -> int:
+    """当前上下文量：压缩摘要 + 压缩点之后的会话内容（估算 tokens）"""
+    total = _estimate_tokens(store.get("summary") or "")
+    total += sum(_estimate_tokens(m["content"]) for m in store["messages"])
+    return total
+
+
+def _extract_usage(message) -> dict | None:
+    """从 AIMessage 提取真实 token 用量，兼容不同 langchain 版本 / 提供商字段"""
+    usage = getattr(message, "usage_metadata", None)
+    if usage:
+        return {
+            "input_tokens": usage.get("input_tokens", 0),
+            "output_tokens": usage.get("output_tokens", 0),
+            "total_tokens": usage.get("total_tokens", 0),
+        }
+    meta = getattr(message, "response_metadata", None) or {}
+    token_usage = meta.get("token_usage") or meta.get("usage")
+    if token_usage:
+        inp = token_usage.get("prompt_tokens", token_usage.get("input_tokens", 0))
+        out = token_usage.get("completion_tokens", token_usage.get("output_tokens", 0))
+        return {
+            "input_tokens": inp,
+            "output_tokens": out,
+            "total_tokens": token_usage.get("total_tokens", inp + out),
+        }
+    return None
+
+
+class UsageStatsHandler(BaseCallbackHandler):
+    """累计一次运行中所有 LLM 调用的 token 用量（图内各节点 + 压缩调用统一经回调埋点）。
+
+    优先取提供商返回的真实 usage；拿不到时用 _estimate_tokens 估算兜底，
+    并计入 estimated_calls，便于区分统计口径。
+    """
+
+    def __init__(self):
+        self.input_tokens = 0
+        self.output_tokens = 0
+        self.total_tokens = 0
+        self.calls = 0
+        self.estimated_calls = 0
+        self._est_pending = 0
+        self._seen_run_ids: set = set()
+
+    def on_chat_model_start(self, serialized, messages, **kwargs):  # noqa: ANN001
+        if kwargs.get("run_id") in self._seen_run_ids:
+            return
+        try:
+            self._est_pending = sum(
+                _estimate_tokens(getattr(m, "content", "") or "")
+                for batch in messages
+                for m in batch
+            )
+        except Exception:
+            self._est_pending = 0
+
+    # langchain_core 新版结束事件为 on_llm_end（LLMResult），
+    # 旧版/部分模型为 on_chat_model_end；两者都挂，用 run_id 去重
+    def on_llm_end(self, response, **kwargs):  # noqa: ANN001
+        self._handle_end(response, **kwargs)
+
+    def on_chat_model_end(self, response, **kwargs):  # noqa: ANN001
+        self._handle_end(response, **kwargs)
+
+    def _handle_end(self, response, **kwargs):  # noqa: ANN001
+        run_id = kwargs.get("run_id")
+        if run_id is not None:
+            if run_id in self._seen_run_ids:
+                return
+            self._seen_run_ids.add(run_id)
+        self.calls += 1
+        try:
+            # response 可能是 LLMResult（标准回调）、AIMessage/AIMessageChunk
+            message = None
+            if hasattr(response, "content"):
+                message = response
+            elif getattr(response, "generations", None):
+                message = response.generations[0][0].message
+            elif getattr(response, "message", None) is not None:
+                message = response.message
+            usage = _extract_usage(message) if message is not None else None
+            if usage and (usage["input_tokens"] or usage["output_tokens"]):
+                self.input_tokens += usage["input_tokens"]
+                self.output_tokens += usage["output_tokens"]
+                self.total_tokens += usage["total_tokens"] or usage["input_tokens"] + usage["output_tokens"]
+            else:
+                # 估算兜底：输入用 start 时统计值，输出按回复内容估算
+                self.estimated_calls += 1
+                output = _estimate_tokens(getattr(message, "content", "") or "")
+                self.input_tokens += self._est_pending
+                self.output_tokens += output
+                self.total_tokens += self._est_pending + output
+        except Exception as e:
+            logger.warning(f"统计 token 用量失败: {e}")
+        finally:
+            self._est_pending = 0
+
+    def snapshot(self) -> dict:
+        return {
+            "input_tokens": self.input_tokens,
+            "output_tokens": self.output_tokens,
+            "total_tokens": self.total_tokens,
+            "calls": self.calls,
+            "estimated_calls": self.estimated_calls,
+        }
+
+
+_COMPRESS_PROMPT = """你是对话历史压缩器。请将【已有摘要】与【待压缩对话】整合为一份新的简洁摘要，作为后续对话的上下文。
+要求：
+1. 保留关键实体、业务数据、结论以及用户未完成的需求；
+2. 去除寒暄与重复内容；
+3. 使用中文，控制在 500 字以内，直接输出摘要正文。
+
+【已有摘要】
+{prev_summary}
+
+【待压缩对话】
+{transcript}"""
+
+
+def _compress_history(store: dict, handler: "UsageStatsHandler | None" = None) -> None:
+    """超过阈值时自动压缩历史：
+    以压缩点为界，将旧摘要 + 压缩点前更早的消息合并为新摘要，
+    仅保留最近 compress_keep_recent 条消息在压缩点之后。
+    """
+    threshold = int(settings.context_max_tokens * settings.compress_threshold)
+    keep = max(settings.compress_keep_recent, 1)
+
+    total = _context_token_count(store)
+    if total <= threshold or len(store["messages"]) <= keep:
+        return  # 未超阈值，或压缩点之后已无可再压缩的消息
+
+    older = store["messages"][:-keep]
+    recent = store["messages"][-keep:]
+    transcript = "\n".join(
+        f"{'用户' if m['role'] == 'user' else '助手'}: {m['content']}" for m in older
+    )
+    prompt = _COMPRESS_PROMPT.format(
+        prev_summary=store.get("summary") or "（无）",
+        transcript=transcript,
+    )
+    try:
+        cfg = {"callbacks": [handler]} if handler is not None else None
+        resp = agent_llm.invoke([HumanMessage(content=prompt)], config=cfg)
+        store["summary"] = resp.content
+        store["messages"] = recent  # 更新压缩点
+        logger.info(
+            f"会话历史已压缩: 估算 {total} tokens 超过阈值 {threshold}，"
+            f"新摘要 {len(store['summary'])} 字，压缩点后保留 {len(recent)} 条消息"
+        )
+    except Exception as e:
+        logger.error(f"压缩会话历史失败: {e}", exc_info=True)
+
+
+def _build_history_payload(store: dict) -> list:
+    """组装调用上下文：压缩摘要 + 压缩点之后的会话内容（不含本轮输入）"""
+    msgs: list = []
+    if store.get("summary"):
+        msgs.append(HumanMessage(content=f"【历史会话摘要】\n{store['summary']}"))
+    for m in store["messages"][:-1]:  # 末条为本轮输入，经 user_input 传入
+        if m["role"] == "user":
+            msgs.append(HumanMessage(content=m["content"]))
+        else:
+            msgs.append(AIMessage(content=m["content"]))
+    return msgs
+
+
 # ==================== Agent Chat ====================
 @router.post(
     "/agent/chat",
-    response_model=AgentChatResponse,
     responses={401: {"model": ErrorResponse}, 403: {"model": ErrorResponse}, 500: {"model": ErrorResponse}},
 )
 async def agent_chat(
     request: AgentChatRequest,
-    api_key: str = Depends(verify_api_key),
-) -> AgentChatResponse:
-    """Agent Chat 接口"""
+    # api_key: str = Depends(verify_api_key),
+) -> StreamingResponse:
+    """Agent Chat 接口（流式 SSE 输出）
+
+    - stream_mode="messages" 逐 token 推送终止节点（sql_analyzer / rag_agent / other_agent / sql_fallback）的回答，
+      中间节点（分类、SQL 生成等）的输出不推送给客户端。
+    - 会话保持：thread_id 作为会话键；历史超过阈值时自动压缩，
+      调用时上下文 = 压缩摘要 + 压缩点之后的会话内容。
+    - 结束事件 meta 中返回：tokens_used（本次请求 LLM 消耗 token）、
+      context_limit（上下文上限）、context_current（当前上下文量，估算 tokens）。
+    """
     user_input = request.user_input
+    session_id = request.thread_id or uuid.uuid4().hex
     graph = build_graph()
-    final_state = None
-    async for state,metadata in graph.astream(
-        {"user_input": user_input},
-        stream_mode="messages"
-        ):
-        final_state = state.content
-    return AgentChatResponse(response=final_state)
+
+    # 1) 记录本轮用户输入，2) 超阈值则自动压缩，3) 组装上下文
+    store = _get_session(session_id)
+    store["messages"].append({"role": "user", "content": user_input})
+    usage_handler = UsageStatsHandler()  # 统一埋点：压缩调用 + 图内所有 LLM 调用
+    await asyncio.to_thread(_compress_history, store, usage_handler)
+    history_msgs = _build_history_payload(store)
+
+    # 仅转发这些终止节点产生的内容
+    terminal_nodes = {"sql_analyzer", "rag_agent", "other_agent", "sql_fallback"}
+
+    async def event_stream():
+        reply_parts: list[str] = []
+        try:
+            config = {
+                "configurable": {
+                    "thread_id": session_id,
+                },
+                "callbacks": [usage_handler],
+            }
+            # yield f"data: {json.dumps({'session_id': session_id}, ensure_ascii=False)}\n\n"
+            async for item in graph.astream(
+                {"user_input": user_input, "messages": history_msgs},
+                stream_mode="messages",
+                config=config
+            ):
+                # 兼容不同 langgraph 版本：(chunk, metadata) 或单独 chunk
+                if isinstance(item, tuple) and len(item) == 2:
+                    chunk, metadata = item
+                else:
+                    chunk, metadata = item, {}
+
+                node = (
+                    metadata.get("langgraph_node")
+                    or metadata.get("langgraph_node_name")
+                    or ""
+                )
+                if node not in terminal_nodes:
+                    continue
+
+                content = getattr(chunk, "content", None)
+                if not content:
+                    continue
+                if not isinstance(content, str):
+                    content = str(content)
+                reply_parts.append(content)
+                yield f"data: {json.dumps({'response': content}, ensure_ascii=False)}\n\n"
+            # 4) 记录本轮助手回复到压缩点之后的历史
+            reply = "".join(reply_parts)
+            if reply:
+                store["messages"].append({"role": "assistant", "content": reply})
+            # 5) 返回本轮 token 用量、上下文上限、当前上下文量
+            tokens_used = usage_handler.snapshot()
+            context_current = _context_token_count(store)
+            logger.info(
+                f"会话 {session_id} 本轮 token 用量: total={tokens_used['total_tokens']} "
+                f"(calls={tokens_used['calls']}, 估算={tokens_used['estimated_calls']}); "
+                f"当前上下文 {context_current}/{settings.context_max_tokens} tokens"
+            )
+            yield f"data: {json.dumps({'meta': {'tokens_used': tokens_used, 'context_limit': settings.context_max_tokens, 'context_current': context_current}}, ensure_ascii=False)}\n\n"
+            yield "data: [DONE]\n\n"
+        except Exception as e:
+            logger.error(f"Agent 流式输出失败: {e}", exc_info=True)
+            yield f"data: {json.dumps({'error': str(e)}, ensure_ascii=False)}\n\n"
+
+    return StreamingResponse(event_stream(), media_type="text/event-stream")

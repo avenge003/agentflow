@@ -94,11 +94,7 @@ class DeleteDocumentsResponse(BaseModel):
 class AgentChatRequest(BaseModel):
     """智能体请求"""
     user_input: str = Field(..., description="用户输入")
-
-class AgentChatResponse(BaseModel):
-    """智能体响应"""
-    response: str = Field(..., description="智能体回复")
-
+    thread_id: str | None = Field(None, description="线程ID，用于会话保持")
 
 
 # ==================== 错误响应模型 ====================

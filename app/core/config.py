@@ -60,6 +60,11 @@ class Settings(BaseSettings):
     model_timeout: int = 60
     model_max_retries: int = 3
 
+    # 会话上下文压缩配置
+    context_max_tokens: int = 8000    # 上下文 token 上限（粗估）
+    compress_threshold: float = 0.7   # 历史超过 上限*该比例 时触发压缩
+    compress_keep_recent: int = 4     # 压缩后保留在压缩点之后的最近消息条数
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

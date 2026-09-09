@@ -58,8 +58,9 @@ class ModelService:
             return
 
         logger.info("开始加载 llm 模型...")
-        self.llm_model = init_chat_model(
-            self.model_name,
+        # print(f"模型名称: {self.model_name}, 提供商: {self.model_provider}, 温度: {self.model_temperature}, 超时时间: {self.model_timeout}, 最大重试次数: {self.model_max_retries}, 基础URL: {self.model_base_url}, API Key: {self.model_api_key}")
+        llm_kwargs = dict(
+            model=self.model_name,
             model_provider=self.model_provider,
             temperature=self.model_temperature,
             timeout=self.model_timeout,
@@ -70,8 +71,14 @@ class ModelService:
                 "thinking": {
                     "type": "disabled"
                     }
-            }
+            },
         )
+        try:
+            # 流式场景让服务端在最后一个 chunk 返回 usage（OpenAI 兼容 stream_options.include_usage）
+            self.llm_model = init_chat_model(stream_usage=True, **llm_kwargs)
+        except Exception as e:
+            logger.warning(f"stream_usage=True 初始化失败（{e}），回退为默认配置")
+            self.llm_model = init_chat_model(**llm_kwargs)
         return self.llm_model
 
     def load_embedding_model(self):

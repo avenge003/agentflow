@@ -7,6 +7,7 @@ class InputState(TypedDict):
     输入状态
     """
     user_input: str
+    messages: list  # 历史会话上下文（压缩摘要 + 压缩点之后的会话内容）
 
 class UserInputClassification(TypedDict):
     """
@@ -38,6 +39,9 @@ class OverAllState(TypedDict):
     milvus_results: Annotated[list[str], add]
     sql_str: str
     sql_results: list[tuple]
+    sql_retry_count: int   # SQL 执行失败次数（用于限制重试轮数）
+    sql_error: str         # 最近一次 SQL 执行错误信息（为空表示执行成功）
     sql_analysis_result: str
     other_results: str
+    rag_result: str
     messages: Annotated[list, add_messages]
